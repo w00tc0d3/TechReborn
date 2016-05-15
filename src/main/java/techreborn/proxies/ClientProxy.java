@@ -28,6 +28,7 @@ import techreborn.client.hud.ChargeHud;
 import techreborn.client.keybindings.KeyBindings;
 import techreborn.client.render.entitys.RenderNukePrimed;
 import techreborn.entitys.EntityNukePrimed;
+import techreborn.init.ModSounds;
 import techreborn.manual.loader.ManualLoader;
 
 import java.io.File;
@@ -77,8 +78,6 @@ public class ClientProxy extends CommonProxy
 		// TODO FIX ME
 		ClientRegistry.registerKeyBinding(KeyBindings.config);
 		ClientMultiBlocks.init();
-
-
 	}
 
 	protected void registerItemModel(ItemStack item, String name) {
@@ -99,7 +98,7 @@ public class ClientProxy extends CommonProxy
 	}
 
 	public static ResourceLocation getItemLocation(Item item) {
-		Object o = GameData.getItemRegistry().getNameForObject(item);
+		Object o = item.getRegistryName();
 		if(o == null) {
 			return null;
 		}

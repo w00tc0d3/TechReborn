@@ -1,6 +1,6 @@
 package techreborn.tiles.generator;
 
-import ic2.api.tile.IWrenchable;
+import reborncore.common.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -153,7 +153,7 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
 			{
 				if (worldObj.getBlockState(new BlockPos(getPos().getX() + direction.getFrontOffsetX(),
 						getPos().getY() + direction.getFrontOffsetY(), getPos().getZ() + direction.getFrontOffsetZ()))
-						.getBlock() == Blocks.lava)
+						.getBlock() == Blocks.LAVA)
 				{
 					addEnergy(1);
 				}
@@ -167,7 +167,7 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
 				{
 					if (worldObj.getBlockState(new BlockPos(getPos().getX() + direction.getFrontOffsetX(),
 							getPos().getY() + direction.getFrontOffsetY(),
-							getPos().getZ() + direction.getFrontOffsetZ())).getBlock() == Blocks.lava)
+							getPos().getZ() + direction.getFrontOffsetZ())).getBlock() == Blocks.LAVA)
 					{
 						didFindLava = true;
 					}

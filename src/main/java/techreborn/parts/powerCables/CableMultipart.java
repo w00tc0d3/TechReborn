@@ -1,4 +1,4 @@
-package techreborn.parts;
+package techreborn.parts.powerCables;
 
 import mcmultipart.MCMultiPartMod;
 import mcmultipart.microblock.IMicroblock;
@@ -30,6 +30,8 @@ import reborncore.common.misc.Functions;
 import reborncore.common.misc.vecmath.Vecs3dCube;
 import reborncore.common.util.WorldUtils;
 import techreborn.config.ConfigTechReborn;
+import techreborn.init.ModSounds;
+import techreborn.parts.TechRebornParts;
 import techreborn.parts.walia.IPartWaliaProvider;
 import techreborn.power.TRPowerNet;
 import techreborn.utils.damageSources.ElectrialShockSource;
@@ -292,7 +294,7 @@ public abstract class CableMultipart extends Multipart
     }
 
     public Material getMaterial() {
-        return Material.cloth;
+        return Material.CLOTH;
     }
 
     @Override
@@ -305,9 +307,6 @@ public abstract class CableMultipart extends Multipart
     @Override
     public void onEntityCollided(Entity entity) {
         if (getCableType().canKill && entity instanceof EntityLivingBase) {
-            if (entity instanceof EntityPlayer && ((EntityPlayer) entity).capabilities.isCreativeMode) {
-
-            } else {
                 if (network != null) {
                     if (network.getEnergy() != 0) {
                         if (ConfigTechReborn.UninsulatedElectocutionDamage) {
@@ -318,9 +317,9 @@ public abstract class CableMultipart extends Multipart
                             entity.attackEntityFrom(new ElectrialShockSource(), 1F);
                         }
                         if (ConfigTechReborn.UninsulatedElectocutionSound) {
-                            // getWorld().playSound(entity.posX, entity.posY,
-                            // entity.posZ, ModSounds.shock,
-                            // SoundCategory.BLOCKS, 0.6F, 1F, false);
+                             getWorld().playSound(null, entity.posX, entity.posY,
+                             entity.posZ, ModSounds.shock,
+                             SoundCategory.BLOCKS, 0.6F, 1F);
                         }
                         if (ConfigTechReborn.UninsulatedElectocutionParticle) {
                             getWorld().spawnParticle(EnumParticleTypes.CRIT, entity.posX, entity.posY, entity.posZ, 0,
@@ -328,7 +327,6 @@ public abstract class CableMultipart extends Multipart
                         }
                     }
                 }
-            }
         }
 
     }

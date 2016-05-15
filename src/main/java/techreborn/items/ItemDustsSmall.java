@@ -3,6 +3,7 @@ package techreborn.items;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import reborncore.common.util.StringUtils;
 import techreborn.client.TechRebornCreativeTabMisc;
 import techreborn.init.ModItems;
 import techreborn.lib.ModInfo;
@@ -19,7 +20,7 @@ public class ItemDustsSmall extends ItemTextureBase
 			"gold", "grossular", "invar", "iron", "lazurite", "lead", "magnesium", "manganese", "marble", "netherrack",
 			"nickel", "obsidian", "peridot", "phosphorous", "platinum", "pyrite", "pyrope", "redGarnet", "redrock",
 			"ruby", "saltpeter", "sapphire", "sawDust", "silver", "sodalite", "spessartine", "sphalerite", "steel",
-			"sulfur", "tin", "titanium", "tungsten", "uvarovite", "vinteum", "voidstone", "yellowGarnet", "zinc",
+			"sulfur", "tin", "titanium", "tungsten", "uvarovite", "voidstone", "yellowGarnet", "zinc",
 			"olivine", "redstone", "glowstone" };
 
 	public ItemDustsSmall()
@@ -71,7 +72,7 @@ public class ItemDustsSmall extends ItemTextureBase
 	@Override
 	public String getTextureName(int damage)
 	{
-		return ModInfo.MOD_ID + ":items/smallDust/small" + types[damage] + "Dust";
+		return ModInfo.MOD_ID + ":items/smallDust/small" + StringUtils.toFirstCapital(types[damage]) + "Dust";
 	}
 
 	@Override

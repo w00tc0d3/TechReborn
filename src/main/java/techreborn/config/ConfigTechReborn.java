@@ -12,6 +12,8 @@ public class ConfigTechReborn
 	public static String CATEGORY_UU = "uu";
 	public static String CATEGORY_EMC = "emc";
 	public static String CATEGORY_INTEGRATION = "Integration";
+	public static String CATEGORY_FEATURES = "Features";
+
 	public static double FortuneSecondaryOreMultiplierPerLevel;
 	public static boolean RubberSaplingLoot;
 	public static boolean TinIngotsLoot;
@@ -33,6 +35,7 @@ public class ConfigTechReborn
 	public static int FarmEu;
 	public static int AesuMaxOutput;
 	public static int AesuMaxStorage;
+	public static int pumpExtractEU;
 
 	public static int LVTransformerMaxInput;
 	public static int LVTransformerMaxOutput;
@@ -76,6 +79,9 @@ public class ConfigTechReborn
 	public static int CloakingDeviceTier;
 	public static int CentrifugeTier;
 	public static int ThermalGeneratorTier;
+
+	public static boolean FreqTransmitterChat;
+	public static boolean FreqTransmitterTooltip;
 	// EU/T
 	public static int CloakingDeviceEUTick;
 	// Crafting
@@ -211,6 +217,9 @@ public class ConfigTechReborn
 		AesuMaxOutput = config.get(CATEGORY_POWER, "AESU Max Output", 30, "Set the max output for the AESU").getInt();
 
 		AesuMaxStorage = config.get(CATEGORY_POWER, "AESU Max Storage", 30, "Set the max Storage for the AESU")
+				.getInt();
+
+		pumpExtractEU = config.get(CATEGORY_POWER, "Pump extract eu", 20, "How mutch eu should the pump use to extract the fluid")
 				.getInt();
 
 		//Transformers
@@ -351,6 +360,15 @@ public class ConfigTechReborn
 
 		ThermalGeneratorTier = config
 				.get(CATEGORY_POWER, "ThermalGenerator Tier", 1, "Set the Tier of the ThermalGenerator").getInt();
+
+		//Features
+		FreqTransmitterChat = config
+				.get(CATEGORY_FEATURES, "Frequency Transmitter Chat messages", true, "Allow Frequency Transmitter chat messages")
+				.getBoolean(true);
+
+		FreqTransmitterTooltip = config
+				.get(CATEGORY_FEATURES, "Frequency Transmitter tooltips", true, "Allow Frequency Transmitter to display tooltip info")
+				.getBoolean(true);
 
 		// Crafting
 		ExpensiveMacerator = config

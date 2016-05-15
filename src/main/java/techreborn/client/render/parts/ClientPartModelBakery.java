@@ -8,7 +8,8 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import techreborn.parts.EnumCableType;
+import techreborn.parts.fluidPipes.EnumFluidPipeTypes;
+import techreborn.parts.powerCables.EnumCableType;
 
 /**
  * Created by modmuss50 on 04/03/2016.
@@ -26,6 +27,12 @@ public class ClientPartModelBakery
 					new ModelResourceLocation("techreborn:cable#type=" + type.getName().toLowerCase()),
 					new RenderCablePart(type));
 		}
+		for(EnumFluidPipeTypes type : EnumFluidPipeTypes.values()){
+			event.getModelRegistry().putObject(
+					new ModelResourceLocation("techreborn:fluidpipe#type=" + type.getName().toLowerCase()),
+					new RenderFluidPipePart(type));
+		}
+
 	}
 
 	@SubscribeEvent
@@ -33,6 +40,9 @@ public class ClientPartModelBakery
 	{
 		for (EnumCableType type : EnumCableType.values())
 		{
+			event.getMap().registerSprite(new ResourceLocation(type.textureName));
+		}
+		for(EnumFluidPipeTypes type : EnumFluidPipeTypes.values()){
 			event.getMap().registerSprite(new ResourceLocation(type.textureName));
 		}
 	}

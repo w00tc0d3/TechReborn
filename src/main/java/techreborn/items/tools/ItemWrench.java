@@ -1,6 +1,6 @@
 package techreborn.items.tools;
 
-import ic2.api.tile.IWrenchable;
+import reborncore.common.IWrenchable;
 import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.block.BlockDynamicLiquid;
 import net.minecraft.block.BlockStaticLiquid;
@@ -16,6 +16,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -24,6 +25,7 @@ import reborncore.common.tile.TileMachineBase;
 import techreborn.blocks.fluid.BlockFluidBase;
 import techreborn.blocks.storage.BlockBatBox;
 import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.init.ModSounds;
 import techreborn.items.ItemTR;
 import techreborn.lib.ModInfo;
 import techreborn.tiles.storage.TileEnergyStorage;
@@ -152,13 +154,12 @@ public class ItemWrench extends ItemTR implements ITexturedItem
 								}
 							}
 						}
-
-						// TODO 1.9 sounds
-						// world.playSoundAtEntity(player, "techreborn:block_dismantle",
-						// 0.8F, 1F);
+						world.playSound(null, player.posX, player.posY,
+								player.posZ, ModSounds.dismantle,
+								SoundCategory.BLOCKS, 0.6F, 1F);
 						if (!world.isRemote)
 						{
-							world.setBlockState(pos, Blocks.air.getDefaultState(), 2);
+							world.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
 						}
 						return EnumActionResult.SUCCESS;
 					}

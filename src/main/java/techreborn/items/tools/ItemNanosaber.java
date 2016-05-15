@@ -2,6 +2,7 @@ package techreborn.items.tools;
 
 import java.util.List;
 
+import me.modmuss50.jsonDestroyer.api.IHandHeld;
 import me.modmuss50.jsonDestroyer.api.ITexturedItem;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
@@ -24,7 +25,8 @@ import reborncore.common.util.ItemNBTHelper;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.lib.ModInfo;
 
-public class ItemNanosaber extends ItemSword implements IEnergyItemInfo, ITexturedItem
+import net.minecraft.item.Item.ToolMaterial;
+public class ItemNanosaber extends ItemSword implements IEnergyItemInfo, ITexturedItem, IHandHeld
 {
 
 	public static int tier = 1;
