@@ -62,6 +62,7 @@ public class GuiHandler implements IGuiHandler
 	public static final int batboxID = 39;
 	public static final int mfsuID = 40;
 	public static final int mfeID = 41;
+	public static final int fissionID = 42;
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
 	{
@@ -188,9 +189,9 @@ public class GuiHandler implements IGuiHandler
 		} else if (ID == batboxID)
 		{
 			return new ContainerBatbox((TileBatBox) world.getTileEntity(new BlockPos(x, y, z)), player);
-		}else if (ID == mfsuID){
+		} else if (ID == mfsuID){
 			return new ContainerMFSU((TileMFSU) world.getTileEntity(new BlockPos(x, y, z)), player);
-		}else if (ID == mfeID){
+		} else if (ID == mfeID){
 			return new ContainerMFE((TileMFE) world.getTileEntity(new BlockPos(x, y, z)), player);
 		}
 		if(container != null){

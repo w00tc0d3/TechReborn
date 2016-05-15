@@ -1,12 +1,36 @@
 package techreborn.reactor.fission;
 
+import me.modmuss50.jsonDestroyer.api.ITexturedItem;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import reborncore.RebornCore;
 import techreborn.api.reactor.NeighborStack;
 import techreborn.api.reactor.fission.INeutron;
 import techreborn.api.reactor.fission.Neutron;
+import techreborn.client.TechRebornCreativeTabMisc;
+import techreborn.lib.ModInfo;
 
-public class FuelThorium extends FuelBase {
+public class FuelThorium extends FuelBase implements ITexturedItem {
     private boolean isUranium232 = false;
+    private int ticks = 0;
+
+    public FuelThorium() {
+        setUnlocalizedName("techreborn.fuelThorium");
+        setCreativeTab(TechRebornCreativeTabMisc.instance);
+        RebornCore.jsonDestroyer.registerObject(this);
+    }
+
+    @Override
+    public void update() {
+        ticks++;
+        if(isUranium232) {
+            if(ticks >= 40) {
+                ticks = 0;
+                isUranium232 = false;
+            }
+        }
+    }
 
     @Override
     public void hitByNeutron(ItemStack stack, INeutron neutron) {
@@ -59,5 +83,20 @@ public class FuelThorium extends FuelBase {
     protected void readInfoFromNBT(ItemStack itemStack) {
         super.readInfoFromNBT(itemStack);
         isUranium232 = getTagCompound(itemStack).getBoolean("isUranium232");
+    }
+
+    @Override
+    public String getTextureName(int i) {
+        return "techreborn:items/fuel/fuelThorium";
+    }
+
+    @Override
+    public int getMaxMeta() {
+        return 0;
+    }
+
+    @Override
+    public ModelResourceLocation getModel(ItemStack itemStack, EntityPlayer entityPlayer, int i) {
+        return new ModelResourceLocation(ModInfo.MOD_ID + ":" + getUnlocalizedName(itemStack).substring(5), "inventory");
     }
 }

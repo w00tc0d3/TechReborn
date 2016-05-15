@@ -24,6 +24,7 @@ import techreborn.items.battery.ItemLithiumBattery;
 import techreborn.items.battery.ItemReBattery;
 import techreborn.items.tools.*;
 import techreborn.api.Reference;
+import techreborn.reactor.fission.FuelThorium;
 
 public class ModItems
 {
@@ -97,6 +98,8 @@ public class ModItems
 	public static Item energyCrystal;
 	public static Item scrapBox;
 	public static Item frequencyTransmitter;
+
+	public static Item fuelThorium;
 
 	public static Item bronzeSword;
 	public static Item bronzePickaxe;
@@ -227,6 +230,9 @@ public class ModItems
 		GameRegistry.registerItem(steelJackhammer, "steeljackhammer");
 		diamondJackhammer = PoweredItem.createItem(ItemDiamondJackhammer.class);
 		GameRegistry.registerItem(diamondJackhammer, "diamondjackhammer");
+
+		fuelThorium = new FuelThorium();
+		GameRegistry.registerItem(fuelThorium, "fuelThorium");
 
 		bronzeSword = new ItemTRSword(Reference.BRONZE);
 		GameRegistry.registerItem(bronzeSword, "bronzeSword");

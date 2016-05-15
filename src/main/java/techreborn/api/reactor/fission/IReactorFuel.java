@@ -4,6 +4,9 @@ import net.minecraft.item.ItemStack;
 
 /* Implement this to add reactor fuel. Recommended to extend the Item class. */
 public interface IReactorFuel {
+    /* Should be called by the reactor every tick. */
+    void update();
+
     /* Should be called by the reactor whenever the fuel gets hit by a neutron. */
     void hitByNeutron(ItemStack stack, INeutron neutron);
 
