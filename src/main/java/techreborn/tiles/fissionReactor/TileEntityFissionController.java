@@ -7,7 +7,6 @@ import reborncore.common.tile.TileMachineBase;
 import reborncore.common.util.Inventory;
 import techreborn.api.reactor.NeighborStack;
 import techreborn.api.reactor.fission.INeutron;
-import techreborn.api.reactor.fission.IReactorCoolant;
 import techreborn.api.reactor.fission.IReactorFuel;
 import techreborn.api.reactor.fission.IReactorModerator;
 
