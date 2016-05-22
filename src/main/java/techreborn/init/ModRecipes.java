@@ -5,14 +5,18 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.ForgeModContainer;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import org.apache.commons.lang3.ArrayUtils;
 import reborncore.api.recipe.RecipeHandler;
 import reborncore.common.util.CraftingHelper;
 import reborncore.common.util.OreUtil;
+import reborncore.common.util.StringUtils;
 import techreborn.Core;
 import techreborn.api.ScrapboxList;
 import techreborn.api.TechRebornAPI;
@@ -39,6 +43,18 @@ public class ModRecipes
 	public static ItemStack lapcrystalStack = new ItemStack(ModItems.lapotronCrystal, 1, OreDictionary.WILDCARD_VALUE);
 	public static ItemStack dyes = new ItemStack(Items.DYE, 1, OreDictionary.WILDCARD_VALUE);
 	public static Item hammer = ModItems.hammer;
+
+	public static Item ironDrill = TechRebornAPI.recipeCompact.getItem("miningDrill").getItem();
+	public static ItemStack ironDrillStack = new ItemStack(ironDrill, 1, OreDictionary.WILDCARD_VALUE);
+
+	public static Item diamondDrill = ModItems.diamondDrill;
+	public static ItemStack diamondDrillStack = new ItemStack(diamondDrill, 1, OreDictionary.WILDCARD_VALUE);
+
+	public static Item ironChainsaw = ModItems.ironChainsaw;
+	public static ItemStack ironChainsawStack = new ItemStack(ironChainsaw, 1, OreDictionary.WILDCARD_VALUE);
+
+	public static Item diamondChainsaw = ModItems.diamondChainsaw;
+	public static ItemStack diamondChainsawStack = new ItemStack(diamondChainsaw, 1, OreDictionary.WILDCARD_VALUE);
 
 	public static void init()
 	{
@@ -335,7 +351,7 @@ public class ModRecipes
 				new ExtractorRecipe(ItemParts.getPartByName("rubberSap"), ItemParts.getPartByName("rubber", 3), 400,
 						20));
 		RecipeHandler.addRecipe(
-				new ExtractorRecipe(new ItemStack(ModBlocks.rubberLog), ItemParts.getPartByName("rubber"), 400, 20));
+				new ExtractorRecipe(new ItemStack(ModBlocks.rubberLog), ItemParts.getPartByName("rubber"), 400, 20, false));
 	}
 
 	static void addIc2ReplacementReicpes()
@@ -434,25 +450,25 @@ public class ModRecipes
 		addGemToolRecipes(new ItemStack(ModItems.rubySword), new ItemStack(ModItems.rubyPickaxe),
 				new ItemStack(ModItems.rubyAxe), new ItemStack(ModItems.rubyHoe), new ItemStack(ModItems.rubySpade),
 				new ItemStack(ModItems.rubyHelmet), new ItemStack(ModItems.rubyChestplate),
-				new ItemStack(ModItems.rubyLeggings), new ItemStack(ModItems.rubyBoots), ItemGems.getGemByName("ruby"));
+				new ItemStack(ModItems.rubyLeggings), new ItemStack(ModItems.rubyBoots), "gemRuby");
 
 		addGemToolRecipes(new ItemStack(ModItems.sapphireSword), new ItemStack(ModItems.sapphirePickaxe),
 				new ItemStack(ModItems.sapphireAxe), new ItemStack(ModItems.sapphireHoe),
 				new ItemStack(ModItems.sapphireSpade), new ItemStack(ModItems.sapphireHelmet),
 				new ItemStack(ModItems.sapphireChestplate), new ItemStack(ModItems.sapphireLeggings),
-				new ItemStack(ModItems.sapphireBoots), ItemGems.getGemByName("sapphire"));
+				new ItemStack(ModItems.sapphireBoots), "gemSapphire");
 
 		addGemToolRecipes(new ItemStack(ModItems.peridotSword), new ItemStack(ModItems.peridotPickaxe),
 				new ItemStack(ModItems.peridotAxe), new ItemStack(ModItems.peridotHoe),
 				new ItemStack(ModItems.peridotSpade), new ItemStack(ModItems.peridotHelmet),
 				new ItemStack(ModItems.peridotChestplate), new ItemStack(ModItems.peridotLeggings),
-				new ItemStack(ModItems.peridotBoots), ItemGems.getGemByName("peridot"));
+				new ItemStack(ModItems.peridotBoots), "gemPeridot");
 
 		addGemToolRecipes(new ItemStack(ModItems.bronzeSword), new ItemStack(ModItems.bronzePickaxe),
 				new ItemStack(ModItems.bronzeAxe), new ItemStack(ModItems.bronzeHoe),
 				new ItemStack(ModItems.bronzeSpade), new ItemStack(ModItems.bronzeHelmet),
 				new ItemStack(ModItems.bronzeChestplate), new ItemStack(ModItems.bronzeLeggings),
-				new ItemStack(ModItems.bronzeBoots), ItemIngots.getIngotByName("bronze"));
+				new ItemStack(ModItems.bronzeBoots), "ingotBronze");
 
 		CraftingHelper
 				.addShapedOreRecipe(new ItemStack(ModItems.ironChainsaw), " SS", "SCS", "BS ", 'S', "ingotSteel", 'B',
@@ -746,7 +762,7 @@ public class ModRecipes
 			{
 				CraftingHelper.addShapedOreRecipe(ItemParts.getPartByName(part), " O ", "OIO", " O ", 'I',
 						new ItemStack(Items.IRON_INGOT), 'O',
-						"ingot" + capitalizeFirstLetter(part.replace("Gear", "")));
+						"ingot" + StringUtils.toFirstCapital(part.replace("Gear", "")));
 			}
 		}
 
@@ -851,14 +867,14 @@ public class ModRecipes
 						'C', ItemParts.getPartByName("CoolantSimple"), 'S', ItemCells.getCellByName("sodium"), 'P',
 						ItemCells.getCellByName("potassium"));
 
-		Core.logHelper.info("Shapped Recipes Added");
-	}
+		CraftingHelper
+				.addShapedOreRecipe(new ItemStack(ModItems.advancedDrill), "ODO", "AOA", 'O', ItemUpgrades.getUpgradeByName("Overclock"),
+						'D', diamondDrillStack, 'A', "circuitAdvanced");
+		CraftingHelper
+				.addShapedOreRecipe(new ItemStack(ModItems.advancedChainsaw), "ODO", "AOA", 'O', ItemUpgrades.getUpgradeByName("Overclock"),
+						'D', diamondChainsawStack, 'A', "circuitAdvanced");
 
-	public static String capitalizeFirstLetter(String original)
-	{
-		if (original.length() == 0)
-			return original;
-		return original.substring(0, 1).toUpperCase() + original.substring(1);
+		Core.logHelper.info("Shapped Recipes Added");
 	}
 
 	static void addShapelessRecipes()
@@ -1157,8 +1173,8 @@ public class ModRecipes
 			if (OreUtil.hasBlock(ore) && OreUtil.hasPlate(ore))
 			{
 				RecipeHandler.addRecipe(
-						new PlateCuttingMachineRecipe(OreUtil.getStackFromName("block" + capitalizeFirstLetter(ore)),
-								OreUtil.getStackFromName("plate" + capitalizeFirstLetter(ore), 9), 200, 16));
+						new PlateCuttingMachineRecipe(OreUtil.getStackFromName("block" + StringUtils.toFirstCapital(ore)),
+								OreUtil.getStackFromName("plate" + StringUtils.toFirstCapital(ore), 9), 200, 16));
 			}
 		}
 
@@ -1487,17 +1503,17 @@ public class ModRecipes
 			if (OreUtil.hasIngot(ore) && OreUtil.hasDustSmall(ore) && OreUtil.hasBlock(ore))
 			{
 				RecipeHandler.addRecipe(
-						new IndustrialGrinderRecipe(OreUtil.getStackFromName("block" + capitalizeFirstLetter(ore)),
+						new IndustrialGrinderRecipe(OreUtil.getStackFromName("block" + StringUtils.toFirstCapital(ore)),
 								null, new FluidStack(FluidRegistry.WATER, 1000),
-								OreUtil.getStackFromName("ingot" + capitalizeFirstLetter(ore)),
-								OreUtil.getStackFromName("dustSmall" + capitalizeFirstLetter(ore), 6),
-								OreUtil.getStackFromName("dustSmall" + capitalizeFirstLetter(ore), 2), null, 100, 120));
+								OreUtil.getStackFromName("ingot" + StringUtils.toFirstCapital(ore)),
+								OreUtil.getStackFromName("dustSmall" + StringUtils.toFirstCapital(ore), 6),
+								OreUtil.getStackFromName("dustSmall" + StringUtils.toFirstCapital(ore), 2), null, 100, 120));
 				RecipeHandler.addRecipe(
-						new IndustrialGrinderRecipe(OreUtil.getStackFromName("block" + capitalizeFirstLetter(ore)),
+						new IndustrialGrinderRecipe(OreUtil.getStackFromName("block" + StringUtils.toFirstCapital(ore)),
 								new ItemStack(Items.WATER_BUCKET), null,
-								OreUtil.getStackFromName("ingot" + capitalizeFirstLetter(ore)),
-								OreUtil.getStackFromName("dustSmall" + capitalizeFirstLetter(ore), 6),
-								OreUtil.getStackFromName("dustSmall" + capitalizeFirstLetter(ore), 2),
+								OreUtil.getStackFromName("ingot" + StringUtils.toFirstCapital(ore)),
+								OreUtil.getStackFromName("dustSmall" + StringUtils.toFirstCapital(ore), 6),
+								OreUtil.getStackFromName("dustSmall" + StringUtils.toFirstCapital(ore), 2),
 								new ItemStack(Items.BUCKET), 100, 120));
 			}
 		}
@@ -1521,7 +1537,7 @@ public class ModRecipes
 						ItemDusts.getDustByName("gold", 1), ItemDustsSmall.getSmallDustByName("Nickel", 1), null, 100,
 						120));
 				RecipeHandler.addRecipe(
-						new IndustrialGrinderRecipe(oreStack, new ItemStack(ModItems.bucketSodiumpersulfate), null,
+						new IndustrialGrinderRecipe(oreStack, getBucketWithFluid(ModFluids.fluidSodiumpersulfate), null,
 								ItemDusts.getDustByName("copper", 2), ItemDusts.getDustByName("gold", 1),
 								ItemDustsSmall.getSmallDustByName("Nickel", 1), new ItemStack(Items.BUCKET), 100, 120));
 
@@ -1558,7 +1574,7 @@ public class ModRecipes
 						ItemDustsSmall.getSmallDustByName("Iron", 1), ItemDusts.getDustByName("zinc", 1), null, 100,
 						120));
 				RecipeHandler.addRecipe(
-						new IndustrialGrinderRecipe(oreStack, new ItemStack(ModItems.bucketSodiumpersulfate), null,
+						new IndustrialGrinderRecipe(oreStack, getBucketWithFluid(ModFluids.fluidSodiumpersulfate), null,
 								ItemDusts.getDustByName("tin", 2), ItemDustsSmall.getSmallDustByName("Iron", 1),
 								ItemDusts.getDustByName("zinc", 1), new ItemStack(Items.BUCKET), 100, 120));
 			} catch (Exception e)
@@ -1586,7 +1602,7 @@ public class ModRecipes
 						ItemDustsSmall.getSmallDustByName("Iron", 1), ItemDustsSmall.getSmallDustByName("Platinum", 1),
 						null, 100, 120));
 				RecipeHandler.addRecipe(
-						new IndustrialGrinderRecipe(oreStack, new ItemStack(ModItems.bucketSodiumpersulfate), null,
+						new IndustrialGrinderRecipe(oreStack, getBucketWithFluid(ModFluids.fluidSodiumpersulfate), null,
 								ItemDusts.getDustByName("nickel", 3), ItemDustsSmall.getSmallDustByName("Iron", 1),
 								ItemDustsSmall.getSmallDustByName("Platinum", 1), new ItemStack(Items.BUCKET), 100,
 								120));
@@ -1596,7 +1612,7 @@ public class ModRecipes
 								ItemDusts.getDustByName("nickel", 2), ItemDustsSmall.getSmallDustByName("Iron", 1),
 								ItemDusts.getDustByName("platinum", 1), null, 100, 120));
 				RecipeHandler.addRecipe(
-						new IndustrialGrinderRecipe(oreStack, new ItemStack(ModItems.bucketMercury), null,
+						new IndustrialGrinderRecipe(oreStack, getBucketWithFluid(ModFluids.fluidMercury), null,
 								ItemDusts.getDustByName("nickel", 2), ItemDustsSmall.getSmallDustByName("Iron", 1),
 								ItemDusts.getDustByName("platinum", 1), new ItemStack(Items.BUCKET), 100, 120));
 			} catch (Exception e)
@@ -1624,7 +1640,7 @@ public class ModRecipes
 						ItemDustsSmall.getSmallDustByName("Iron", 1), ItemDusts.getDustByName("iron", 1), null, 100,
 						120));
 				RecipeHandler.addRecipe(
-						new IndustrialGrinderRecipe(oreStack, new ItemStack(ModItems.bucketSodiumpersulfate), null,
+						new IndustrialGrinderRecipe(oreStack, getBucketWithFluid(ModFluids.fluidSodiumpersulfate), null,
 								ItemDusts.getDustByName("zinc", 2), ItemDustsSmall.getSmallDustByName("Iron", 1),
 								ItemDusts.getDustByName("iron", 1), new ItemStack(Items.BUCKET), 100, 120));
 			} catch (Exception e)
@@ -1652,7 +1668,7 @@ public class ModRecipes
 								ItemDusts.getDustByName("silver", 3), ItemDustsSmall.getSmallDustByName("Lead", 1),
 								ItemDustsSmall.getSmallDustByName("Sulfur", 1), null, 100, 120));
 				RecipeHandler.addRecipe(
-						new IndustrialGrinderRecipe(oreStack, new ItemStack(ModItems.bucketMercury), null,
+						new IndustrialGrinderRecipe(oreStack, getBucketWithFluid(ModFluids.fluidMercury), null,
 								ItemDusts.getDustByName("silver", 3), ItemDustsSmall.getSmallDustByName("Lead", 1),
 								ItemDustsSmall.getSmallDustByName("Sulfur", 1), new ItemStack(Items.BUCKET), 100, 120));
 			} catch (Exception e)
@@ -1680,7 +1696,7 @@ public class ModRecipes
 								ItemDusts.getDustByName("lead", 2), ItemDusts.getDustByName("silver", 1),
 								ItemDustsSmall.getSmallDustByName("Sulfur", 1), null, 100, 120));
 				RecipeHandler.addRecipe(
-						new IndustrialGrinderRecipe(oreStack, new ItemStack(ModItems.bucketMercury), null,
+						new IndustrialGrinderRecipe(oreStack, getBucketWithFluid(ModFluids.fluidMercury), null,
 								ItemDusts.getDustByName("lead", 2), ItemDusts.getDustByName("silver", 1),
 								ItemDustsSmall.getSmallDustByName("Sulfur", 1), new ItemStack(Items.BUCKET), 100, 120));
 			} catch (Exception e)
@@ -1873,7 +1889,7 @@ public class ModRecipes
 				new FluidStack(ModFluids.fluidMercury, 1000), ItemDusts.getDustByName("galena", 2),
 				ItemDustsSmall.getSmallDustByName("Sulfur", 1), ItemDusts.getDustByName("silver", 1), null, 100, 120));
 		RecipeHandler.addRecipe(
-				new IndustrialGrinderRecipe(new ItemStack(ModBlocks.ore, 1, 0), new ItemStack(ModItems.bucketMercury),
+				new IndustrialGrinderRecipe(new ItemStack(ModBlocks.ore, 1, 0), getBucketWithFluid(ModFluids.fluidMercury),
 						null, ItemDusts.getDustByName("galena", 2), ItemDustsSmall.getSmallDustByName("Sulfur", 1),
 						ItemDusts.getDustByName("silver", 1), new ItemStack(Items.BUCKET), 100, 120));
 
@@ -1942,7 +1958,7 @@ public class ModRecipes
 				ItemDusts.getDustByName("zinc", 1), ItemDustsSmall.getSmallDustByName("YellowGarnet", 1), null, 100,
 				120));
 		RecipeHandler.addRecipe(new IndustrialGrinderRecipe(new ItemStack(ModBlocks.ore, 1, 7),
-				new ItemStack(ModItems.bucketSodiumpersulfate), null, ItemDusts.getDustByName("sphalerite", 2),
+				getBucketWithFluid(ModFluids.fluidSodiumpersulfate), null, ItemDusts.getDustByName("sphalerite", 2),
 				ItemDusts.getDustByName("zinc", 1), ItemDustsSmall.getSmallDustByName("YellowGarnet", 1),
 				new ItemStack(Items.BUCKET), 100, 120));
 
@@ -1961,7 +1977,7 @@ public class ModRecipes
 				ItemDustsSmall.getSmallDustByName("Manganese", 1), ItemDusts.getDustByName("silver", 2), null, 100,
 				120));
 		RecipeHandler.addRecipe(
-				new IndustrialGrinderRecipe(new ItemStack(ModBlocks.ore, 1, 8), new ItemStack(ModItems.bucketMercury),
+				new IndustrialGrinderRecipe(new ItemStack(ModBlocks.ore, 1, 8), getBucketWithFluid(ModFluids.fluidMercury),
 						null, ItemDusts.getDustByName("tungsten", 2), ItemDustsSmall.getSmallDustByName("Manganese", 1),
 						ItemDusts.getDustByName("silver", 2), new ItemStack(Items.BUCKET), 100, 120));
 
@@ -1978,7 +1994,7 @@ public class ModRecipes
 				new FluidStack(ModFluids.fluidMercury, 1000), ItemDusts.getDustByName("platinum", 3),
 				ItemNuggets.getNuggetByName("iridium", 2), ItemDusts.getDustByName("nickel", 1), null, 100, 120));
 		RecipeHandler.addRecipe(
-				new IndustrialGrinderRecipe(new ItemStack(ModBlocks.ore, 1, 9), new ItemStack(ModItems.bucketMercury),
+				new IndustrialGrinderRecipe(new ItemStack(ModBlocks.ore, 1, 9), getBucketWithFluid(ModFluids.fluidMercury),
 						null, ItemDusts.getDustByName("platinum", 3), ItemNuggets.getNuggetByName("iridium", 2),
 						ItemDusts.getDustByName("nickel", 1), new ItemStack(Items.BUCKET), 100, 120));
 
@@ -3105,7 +3121,7 @@ public class ModRecipes
 						ItemDustsSmall.getSmallDustByName("Platinum", 2), null,
 						ItemCells.getCellByName("empty"), 100, 120));
 		RecipeHandler.addRecipe(
-				new IndustrialGrinderRecipe(new ItemStack(ModBlocks.ore, 1, 1), new ItemStack(ModItems.bucketMercury),
+				new IndustrialGrinderRecipe(new ItemStack(ModBlocks.ore, 1, 1), getBucketWithFluid(ModFluids.fluidMercury),
 						null, TechRebornAPI.recipeCompact.getItem("iridiumOre"),
 						ItemDustsSmall.getSmallDustByName("Platinum", 2), null,
 						new ItemStack(Items.BUCKET), 100, 120));
@@ -3319,7 +3335,7 @@ public class ModRecipes
 		if (ConfigTechReborn.ExpensiveDiamondDrill)
 			CraftingHelper
 					.addShapedOreRecipe(TechRebornAPI.recipeCompact.getItem("diamondDrill"), " D ", "DBD", "TCT", 'D',
-							"gemDiamond", 'T', "ingotTitanium", 'B', drillStack, 'C',
+							"diamondTR", 'T', "ingotTitanium", 'B', drillStack, 'C',
 							TechRebornAPI.recipeCompact.getItem("advancedCircuit"));
 
 		if (ConfigTechReborn.ExpensiveSolar)
@@ -3353,7 +3369,7 @@ public class ModRecipes
 
 	static void addGemToolRecipes(ItemStack gemsword, ItemStack gempick, ItemStack gemaxe, ItemStack gemHoe,
 			ItemStack gemspade, ItemStack gemhelmet, ItemStack gemchestplate, ItemStack gemleggings, ItemStack gemboots,
-			ItemStack gem)
+			String gem)
 	{
 		CraftingHelper.addShapedOreRecipe(gemsword, " G ", " G ", " S ", 'S', Items.STICK, 'G', gem);
 
@@ -3372,5 +3388,9 @@ public class ModRecipes
 		CraftingHelper.addShapedOreRecipe(gemleggings, "GGG", "G G", "G G", 'G', gem);
 
 		CraftingHelper.addShapedOreRecipe(gemboots, "   ", "G G", "G G", 'G', gem);
+	}
+
+	public static ItemStack getBucketWithFluid(Fluid fluid){
+		return UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket, fluid);
 	}
 }

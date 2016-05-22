@@ -90,13 +90,6 @@ public class TileQuantumChest extends TileMachineBase
 		}
 	}
 
-	public Packet getDescriptionPacket()
-	{
-		NBTTagCompound nbtTag = new NBTTagCompound();
-		writeToNBT(nbtTag);
-		return new SPacketUpdateTileEntity(this.getPos(), 1, nbtTag);
-	}
-
 	@Override
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet)
 	{
@@ -129,20 +122,24 @@ public class TileQuantumChest extends TileMachineBase
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound tagCompound)
+	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound)
 	{
 		super.writeToNBT(tagCompound);
 		writeToNBTWithoutCoords(tagCompound);
+		return tagCompound;
 	}
 
-	public void writeToNBTWithoutCoords(NBTTagCompound tagCompound)
+	public NBTTagCompound writeToNBTWithoutCoords(NBTTagCompound tagCompound)
 	{
 		if (storedItem != null)
 		{
 			tagCompound.setTag("storedStack", storedItem.writeToNBT(new NBTTagCompound()));
 			tagCompound.setInteger("storedQuantity", storedItem.stackSize);
-		} else
+		} else{
 			tagCompound.setInteger("storedQuantity", 0);
+		}
+
+		return tagCompound;
 	}
 
 	@Override

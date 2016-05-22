@@ -128,17 +128,11 @@ public class TileGasTurbine extends TilePowerAcceptor implements IWrenchable, IF
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound tagCompound)
+	public NBTTagCompound writeToNBT(NBTTagCompound tagCompound)
 	{
 		super.writeToNBT(tagCompound);
 		tank.writeToNBT(tagCompound);
-	}
-
-	public Packet getDescriptionPacket()
-	{
-		NBTTagCompound nbtTag = new NBTTagCompound();
-		writeToNBT(nbtTag);
-		return new SPacketUpdateTileEntity(this.getPos(), 1, nbtTag);
+		return tagCompound;
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package techreborn;
 
 import net.minecraft.block.BlockDispenser;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
@@ -35,7 +36,6 @@ import techreborn.events.OreUnifier;
 import techreborn.events.TRTickHandler;
 import techreborn.init.*;
 import techreborn.lib.ModInfo;
-import techreborn.manual.loader.ManualLoader;
 import techreborn.packets.PacketAesu;
 import techreborn.packets.PacketIdsu;
 import techreborn.proxies.CommonProxy;
@@ -45,9 +45,15 @@ import techreborn.world.TechRebornWorldGen;
 
 import java.io.File;
 
-@Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, dependencies = ModInfo.MOD_DEPENDENCUIES, guiFactory = ModInfo.GUI_FACTORY_CLASS, acceptedMinecraftVersions = "[1.9]")
+@Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, dependencies = ModInfo.MOD_DEPENDENCIES, guiFactory = ModInfo.GUI_FACTORY_CLASS, acceptedMinecraftVersions = "[1.9.4]")
 public class Core
 {
+
+	public Core() {
+		//Forge says to call it here, so yeah
+		FluidRegistry.enableUniversalBucket();
+	}
+
 	public static ConfigTechReborn config;
 
 	@SidedProxy(clientSide = ModInfo.CLIENT_PROXY_CLASS, serverSide = ModInfo.SERVER_PROXY_CLASS)

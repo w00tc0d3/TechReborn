@@ -9,6 +9,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import reborncore.common.tile.TileMachineBase;
+import reborncore.common.util.StringUtils;
 import techreborn.Core;
 import techreborn.blocks.*;
 import techreborn.blocks.advanced_machine.BlockBlastFurnace;
@@ -175,6 +176,7 @@ public class ModBlocks
 	public static Block rubberPlanks;
 
 	public static Block ironFence;
+	public static Block distributor;
 
 	public static void init()
 	{
@@ -439,6 +441,9 @@ public class ModBlocks
 		registerBlock(scrapboxinator, "scrapboxinator");
 		GameRegistry.registerTileEntity(TileScrapboxinator.class, "TileScrapboxinatorTR");
 
+		distributor = new BlockDistributor();
+		registerBlock(distributor, "distributor");
+
 		registerOreDict();
 		Core.logHelper.info("TechReborns Blocks Loaded");
 	}
@@ -464,28 +469,14 @@ public class ModBlocks
 
 	public static void registerOreDict()
 	{
-		OreDictionary.registerOre("oreGalena", new ItemStack(ore, 1, 0));
-		OreDictionary.registerOre("oreIridium", new ItemStack(ore, 1, 1));
-		OreDictionary.registerOre("oreRuby", new ItemStack(ore, 1, 2));
-		OreDictionary.registerOre("oreSapphire", new ItemStack(ore, 1, 3));
-		OreDictionary.registerOre("oreBauxite", new ItemStack(ore, 1, 4));
-		OreDictionary.registerOre("orePyrite", new ItemStack(ore, 1, 5));
-		OreDictionary.registerOre("oreCinnabar", new ItemStack(ore, 1, 6));
-		OreDictionary.registerOre("oreSphalerite", new ItemStack(ore, 1, 7));
-		OreDictionary.registerOre("oreTungsten", new ItemStack(ore, 1, 8));
-		OreDictionary.registerOre("oreSheldonite", new ItemStack(ore, 1, 9));
-		OreDictionary.registerOre("orePlatinum", new ItemStack(ore, 1, 9));
-		OreDictionary.registerOre("orePeridot", new ItemStack(ore, 1, 10));
-		OreDictionary.registerOre("oreSodalite", new ItemStack(ore, 1, 11));
-		OreDictionary.registerOre("oreTetrahedrite", new ItemStack(ore, 1, 12));
-		OreDictionary.registerOre("oreTin", new ItemStack(ore, 1, 13));
-		OreDictionary.registerOre("oreLead", new ItemStack(ore, 1, 14));
-		OreDictionary.registerOre("oreSilver", new ItemStack(ore, 1, 15));
+		for(String ore : BlockOre.ores){
+			OreDictionary.registerOre("ore" + StringUtils.toFirstCapital(ore), BlockOre.getOreByName(ore));
+		}
 
-		OreDictionary.registerOre("oreCopper", BlockOre2.getOreByName("copper"));
-		OreDictionary.registerOre("oreTin", BlockOre2.getOreByName("tin"));
-
-
+		for(String ore : BlockOre2.ores){
+			OreDictionary.registerOre("ore" + StringUtils.toFirstCapital(ore), BlockOre2.getOreByName(ore));
+		}
+		
 		OreDictionary.registerOre("blockSilver", new ItemStack(storage, 1, 0));
 		OreDictionary.registerOre("blockAluminum", new ItemStack(storage, 1, 1));
 		OreDictionary.registerOre("blockTitanium", new ItemStack(storage, 1, 2));
@@ -501,6 +492,8 @@ public class ModBlocks
 		OreDictionary.registerOre("blockInvar", new ItemStack(storage, 1, 12));
 		OreDictionary.registerOre("blockOsmium", new ItemStack(storage, 1, 13));
 		OreDictionary.registerOre("blockIridium", new ItemStack(storage, 1, 14));
+		OreDictionary.registerOre("blockCopper", BlockStorage2.getStorageBlockByName("copper", 1));
+		OreDictionary.registerOre("blockTin", BlockStorage2.getStorageBlockByName("tin", 1));
 
 		OreDictionary.registerOre("blockTungstensteel", new ItemStack(storage2, 1, 0));
 		OreDictionary.registerOre("blockLodestone", new ItemStack(storage2, 1, 1));
